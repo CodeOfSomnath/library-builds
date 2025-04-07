@@ -10,6 +10,7 @@ jobs:
     steps:
       - name: Install dependencies
         run: |
+            sudo apt update
             sudo apt install -y dash git-core autoconf libtool gettext autopoint libev4t64
             sudo apt install -y automake python3 nettle-dev libp11-kit-dev libtspi-dev libunistring-dev
             sudo apt install -y libtasn1-bin libtasn1-6-dev libidn2-0-dev gawk gperf
