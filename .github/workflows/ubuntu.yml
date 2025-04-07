@@ -1,10 +1,41 @@
-name: gnutls-ubuntu-x64
+name: Library builder
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
 
 jobs:
-  build:
+  openssl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y build-essential perl git
+
+      - name: Clone OpenSSL
+        run: |
+          git clone https://github.com/openssl/openssl.git
+
+      - name: Configure, Build, and Install
+        run: |
+          cd openssl
+          ./config --prefix=$PWD/../build --openssldir=$PWD/../build/ssl
+          make -j$(nproc)
+          make install
+
+      - name: Print build directory structure
+        run: ls -alR build/
+
+      - name: Create tar.xz archive
+        run: |
+          tar -cJf openssl-ubuntu-x86_64.tar.xz -C build .
+
+      - name: Upload OpenSSL build archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: openssl-ubuntu-x86_64
+          path: openssl-ubuntu-x86_64.tar.xz
+
+  gnutls:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,3 +72,6 @@ jobs:
         with:
           name: openssl-ubuntu-x86_64
           path: openssl-ubuntu-x86_64.tar.xz
+
+  other:
+    # write here
