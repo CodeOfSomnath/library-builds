@@ -1,4 +1,4 @@
-name: Build OpenSSL
+name: openssl-ubuntu-x64
 
 on:
   workflow_dispatch:  # Manual trigger
