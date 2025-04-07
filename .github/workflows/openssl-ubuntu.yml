@@ -1,0 +1,31 @@
+name: Build OpenSSL
+
+on:
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  build-openssl:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: sudo apt update && sudo apt install -y build-essential perl git
+
+      - name: Clone OpenSSL
+        run: |
+          git clone https://github.com/openssl/openssl.git
+          cd openssl
+          git checkout main
+
+      - name: Configure and Build
+        run: |
+          cd openssl
+          ./config
+          make -j$(nproc)
+          make test
+
+      - name: Upload OpenSSL build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: openssl-build
+          path: openssl/  # Adjust if you only want specific output files
