@@ -1,7 +1,7 @@
-name: openssl-ubuntu-x64
+name: Build OpenSSL
 
 on:
-  workflow_dispatch:  # Manual trigger
+  workflow_dispatch:
 
 jobs:
   build-openssl:
@@ -15,17 +15,20 @@ jobs:
         run: |
           git clone https://github.com/openssl/openssl.git
           cd openssl
-          git checkout master
+          git checkout main
 
-      - name: Configure and Build
+      - name: Configure, Build, and Install
         run: |
           cd openssl
-          ./config
+          ./config --prefix=$PWD/../build --openssldir=$PWD/../build/ssl
           make -j$(nproc)
-          make test
+          make install
 
-      - name: Upload OpenSSL build artifacts
+      - name: Print build directory structure
+        run: ls -alR build/
+
+      - name: Upload OpenSSL build output
         uses: actions/upload-artifact@v4
         with:
           name: openssl-build
-          path: openssl/  # Adjust if you only want specific output files
+          path: build/
