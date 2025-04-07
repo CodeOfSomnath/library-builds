@@ -14,8 +14,6 @@ jobs:
       - name: Clone OpenSSL
         run: |
           git clone https://github.com/openssl/openssl.git
-          cd openssl
-          git checkout main
 
       - name: Configure, Build, and Install
         run: |
