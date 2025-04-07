@@ -15,7 +15,7 @@ jobs:
         run: |
           git clone https://github.com/openssl/openssl.git
           cd openssl
-          git checkout main
+          git checkout master
 
       - name: Configure and Build
         run: |
