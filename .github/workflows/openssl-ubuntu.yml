@@ -1,4 +1,4 @@
-name: Build OpenSSL
+name: openssl-ubuntu-x86_64
 
 on:
   workflow_dispatch:
@@ -25,8 +25,13 @@ jobs:
       - name: Print build directory structure
         run: ls -alR build/
 
-      - name: Upload OpenSSL build output
+      - name: Create tar.xz archive
+        run: |
+          tar -cJf openssl-ubuntu-x86_64.tar.xz -C build .
+
+      - name: Upload OpenSSL build archive
         uses: actions/upload-artifact@v4
         with:
-          name: openssl-build
-          path: build/
+          name: openssl-ubuntu-x86_64
+          path: openssl-ubuntu-x86_64.tar.xz
+

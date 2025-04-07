@@ -26,11 +26,16 @@ jobs:
         run: |
           cd gnutls
           ./bootstrap
-          ./configure
-          make 
+          ./configure --prefix=$PWD/../build
+          make -j$(nproc)
+          make install
 
-      - name: Upload build artifacts
+      - name: Create tar.xz archive
+        run: |
+          tar -cJf openssl-ubuntu-x86_64.tar.xz -C gnutls .
+
+      - name: Upload OpenSSL build archive
         uses: actions/upload-artifact@v4
         with:
-          name: gnutls-ubuntu-x64
-          path: gnutls/  # Adjust if you only want specific output files
+          name: openssl-ubuntu-x86_64
+          path: openssl-ubuntu-x86_64.tar.xz
