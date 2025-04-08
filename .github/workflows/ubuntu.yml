@@ -1,4 +1,4 @@
-name: Library builder
+name: ubuntu-x86_64
 
 on:
   workflow_dispatch:
