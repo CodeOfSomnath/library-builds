@@ -27,13 +27,13 @@ jobs:
 
       - name: Create tar.xz archive
         run: |
-          tar -cJf openssl-ubuntu-x86_64.tar.xz -C build .
+          tar -cJf openssl-ubuntu-x86_64-08042025.tar.xz -C build .
 
       - name: Upload OpenSSL build archive
         uses: actions/upload-artifact@v4
         with:
-          name: openssl-ubuntu-x86_64
-          path: openssl-ubuntu-x86_64.tar.xz
+          name: openssl-ubuntu-x86_64-08042025
+          path: openssl-ubuntu-x86_64-08042025.tar.xz
 
   gnutls:
     runs-on: ubuntu-latest
@@ -65,13 +65,13 @@ jobs:
 
       - name: Create tar.xz archive
         run: |
-          tar -cJf gnutls-ubuntu-x86_64.tar.xz -C build .
+          tar -cJf gnutls-ubuntu-x86_64-08042025.tar.xz -C build .
 
       - name: Upload GnuTLS build archive
         uses: actions/upload-artifact@v4
         with:
-          name: gnutls-ubuntu-x86_64
-          path: gnutls-ubuntu-x86_64.tar.xz
+          name: gnutls-ubuntu-x86_64-08042025
+          path: gnutls-ubuntu-x86_64-08042025.tar.xz
 
   # other:
   #   # write here
