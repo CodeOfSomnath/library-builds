@@ -65,13 +65,13 @@ jobs:
 
       - name: Create tar.xz archive
         run: |
-          tar -cJf openssl-ubuntu-x86_64.tar.xz -C gnutls .
+          tar -cJf gnutls-ubuntu-x86_64.tar.xz -C gnutls .
 
       - name: Upload OpenSSL build archive
         uses: actions/upload-artifact@v4
         with:
-          name: openssl-ubuntu-x86_64
-          path: openssl-ubuntu-x86_64.tar.xz
+          name: gnutls-ubuntu-x86_64
+          path: gnutls-ubuntu-x86_64.tar.xz
 
-  other:
-    # write here
+  # other:
+  #   # write here
