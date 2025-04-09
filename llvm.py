@@ -22,15 +22,11 @@ def install_llvm(cwd, install_dir = None, release = "Debug"):
 
     # build
     os.chdir("build")
-    subprocess.run(["make"])
+    subprocess.run(["make", "-j8"])
     subprocess.run(["make", "install"])
     
-    # creating a tar file
-    if os.path.exists("bin"):
-        subprocess.run(["tar", "-cJf", "llvm-x86_64.tar.xz", "-C", "bin", "."])
-    else:
-        os.chdir("..")
-        subprocess.run(["tar", "-cJf", "llvm-x86_64.tar.xz", "-C", "bin", "."])
+    # resetting the path
+    os.chdir(cwd)
 
 
 if __name__ == "__main__":
@@ -39,5 +35,4 @@ if __name__ == "__main__":
     parser.add_argument("-t", "--type", type=str, help="the type of release mode by default it is RELEASE [DEBUG, RELEASE options]", default="RELEASE")
     args = parser.parse_args()
     cwd = os.getcwd()
-    # print(args.outpath)
     install_llvm(cwd, args.outpath, args.type)

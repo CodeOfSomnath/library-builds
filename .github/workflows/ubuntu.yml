@@ -77,31 +77,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Install dependencies
-        run: |
-            sudo apt update
-            sudo apt install -y cmake build-essential git gdb
-            sudo apt install -y clang libclang-dev llvm liblld-dev
-
-
-      - name: Clone Project
-        run: |
-          git clone https://github.com/ziglang/zig.git
-  
-
       - name: Configure and Build
         run: |
-          cd zig
-          mkdir build
-          mkdir bin
-          cmake -S . -B build -DCMAKE_INSTALL_PREFIX=$(pwd)/bin
-          cd build
-          make
-          make install
+          sudo python3 zig.py -o bin
 
       - name: Create tar.xz archive
         run: |
-          tar -cJf zig-ubuntu-x86_64-08042025.tar.xz -C bin .
+          tar -cJf zig-ubuntu-x86_64-08042025.tar.xz -C library-builds/zig/bin .
 
       - name: Upload GnuTLS build archive
         uses: actions/upload-artifact@v4
@@ -126,9 +108,9 @@ jobs:
             sudo python3 llvm.py -o bin
 
       - name: Create tar.xz archive
+      # this is in root folder the folder contains library-builds for me
         run: |
-          cd llvm-project
-          tar -cJf llvm-ubuntu-x86_64-08042025.tar.xz -C bin .
+          tar -cJf llvm-ubuntu-x86_64-08042025.tar.xz -C library-builds/llvm-project/bin .
 
       - name: Upload GnuTLS build archive
         uses: actions/upload-artifact@v4
