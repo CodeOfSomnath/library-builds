@@ -79,6 +79,7 @@ jobs:
     steps:
       - name: Configure and Build
         run: |
+          cd library-builds
           sudo python3 zig.py -o bin
 
       - name: Create tar.xz archive
