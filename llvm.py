@@ -7,7 +7,7 @@ import argparse
 def install_llvm(install_dir = None, release = "Debug"):
     # install build dependencies
     subprocess.run(["sudo", "apt", "update"])
-    subprocess.run(["sudo", "apt", "install", "-y", "cmake", "python", "python3-yaml"])
+    subprocess.run(["sudo", "apt", "install", "-y", "cmake", "python3-yaml"])
 
     # clone the git project
     subprocess.run(["git", "clone", "https://github.com/llvm/llvm-project.git"])
