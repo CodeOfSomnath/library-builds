@@ -113,14 +113,21 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Clone the script
+        run: |
+            git clone https://github.com/CodeOfSomnath/library-builds.git
+
       - name: Build project
         run: |
+            cd library-builds
             sudo apt update
             sudo apt install python3
             sudo python3 llvm.py -o bin
 
       - name: Create tar.xz archive
         run: |
+          cd llvm-project
           tar -cJf llvm-ubuntu-x86_64-08042025.tar.xz -C bin .
 
       - name: Upload GnuTLS build archive
