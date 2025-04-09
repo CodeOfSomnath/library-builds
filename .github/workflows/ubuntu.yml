@@ -108,3 +108,23 @@ jobs:
         with:
           name: zig-ubuntu-x86_64-08042025
           path: zig-ubuntu-x86_64-08042025.tar.xz
+
+  llvm:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build project
+        run: |
+            sudo apt update
+            sudo apt install python
+            sudo python3 llvm.py -o bin
+
+      - name: Create tar.xz archive
+        run: |
+          tar -cJf llvm-ubuntu-x86_64-08042025.tar.xz -C bin .
+
+      - name: Upload GnuTLS build archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: llvm-ubuntu-x86_64-08042025
+          path: llvm-ubuntu-x86_64-08042025.tar.xz
