@@ -77,9 +77,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - name: Clone the script
+        run: |
+          git clone https://github.com/CodeOfSomnath/library-builds.git
+
       - name: Configure and Build
         run: |
           cd library-builds
+          sudo apt update
+          sudo apt install python3
           sudo python3 zig.py -o bin
 
       - name: Create tar.xz archive
