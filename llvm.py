@@ -14,6 +14,7 @@ def install_llvm(cwd, install_dir=None, release="Debug"):
 
     # setup and configure
     os.chdir("./llvm-project")
+    subprocess.run(["ls", "-al"])
     if install_dir == None:
         subprocess.run(
             [
