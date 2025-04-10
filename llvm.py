@@ -19,6 +19,8 @@ def install_llvm(cwd, install_dir=None, release="Debug"):
         subprocess.run(
             [
                 "cmake",
+                "-G",
+                "Ninja",
                 "-S",
                 "llvm",
                 "-B",
