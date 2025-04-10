@@ -6,13 +6,13 @@ import argparse
 
 def install_zig(cwd, install_dir):
 
-    subprocess.run(["sudo", "apt", "install", "-y", "build-essential"])
+    subprocess.run(["sudo", "apt", "install", "-y", "build-essential", "ninja-build"])
 
     # installing llvm for the output
     install_llvm(cwd)
 
     # clone the git and build
-    subprocess.run(["git", "clone", "https://github.com/ziglang/zig.git"])
+    subprocess.run(["git", "clone", "https://github.com/ziglang/zig.git"], check=True)
     subprocess.run(["ls", "-al"])
     os.chdir("./zig")
     # os.mkdir("build")
