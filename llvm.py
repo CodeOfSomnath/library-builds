@@ -33,7 +33,7 @@ def install_llvm(cwd, install_dir=None, release="Debug"):
                 "-G",
                 "Ninja",
                 "-S",
-                ".",
+                "llvm",
                 "-B",
                 "build",
                 f"-DCMAKE_INSTALL_PREFIX={install_dir}",
