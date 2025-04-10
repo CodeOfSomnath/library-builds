@@ -10,10 +10,10 @@ def install_zig(cwd, install_dir):
 
     # installing llvm for the output
     # install_llvm(cwd)
-
+    subprocess.run(["ls", "-al"])
     # clone the git
     subprocess.run(["git", "clone", "https://github.com/ziglang/zig.git"])
-    os.chdir("../zig")
+    os.chdir("./zig")
     os.mkdir("build")
     subprocess.run(["cmake", "-S", ".", "-B", "build", f"-DCMAKE_INSTALL_PREFIX={install_dir}"])
     os.chdir("./build")
