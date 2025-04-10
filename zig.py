@@ -9,7 +9,7 @@ def install_zig(cwd, install_dir):
     subprocess.run(["sudo", "apt", "install", "-y", "build-essential"])
 
     # installing llvm for the output
-    install_llvm(cwd)
+    # install_llvm(cwd)
 
     # clone the git
     subprocess.run(["git", "clone", "https://github.com/ziglang/zig.git"])
