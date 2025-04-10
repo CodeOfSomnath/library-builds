@@ -10,7 +10,7 @@ def install_llvm(cwd, install_dir=None, release="Debug"):
     subprocess.run(["sudo", "apt", "install", "-y", "cmake", "python3-yaml", "ninja-build"], check=True)
 
     # clone the git project
-    subprocess.run(["git", "clone", "https://github.com/llvm/llvm-project.git"], check=True)
+    subprocess.run(["git", "clone", "--depth=1", "--branch", "main", "https://github.com/llvm/llvm-project.git"], check=True)
 
     # setup and configure
     os.chdir("./llvm-project")
@@ -37,6 +37,7 @@ def install_llvm(cwd, install_dir=None, release="Debug"):
                 "-B",
                 "build",
                 f"-DCMAKE_INSTALL_PREFIX={install_dir}",
+                "-DCMAKE_BUILD_TYPE=Debug"
             ],
             check=True,
         )

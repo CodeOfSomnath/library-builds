@@ -33,6 +33,7 @@ def install_zig(cwd, install_dir):
             "-B",
             "build",
             f"-DCMAKE_INSTALL_PREFIX={install_dir}",
+           
         ],
         check=True
     )
