@@ -40,7 +40,7 @@ class Installer:
         self.r("sudo", "apt", "remove", "-y", "git")
 
     
-    def __init__(self, source_url, source_path, cwd, install_folder = "bin", build_folder = "build", os, arch, outfile_name):
+    def __init__(self, source_url, source_path, cwd, os, arch, outfile_name, install_folder = "bin", build_folder = "build"):
         self.source_url = source_url # most likely a git host path like github
         self.source_path = source_path
         self.cwd = cwd

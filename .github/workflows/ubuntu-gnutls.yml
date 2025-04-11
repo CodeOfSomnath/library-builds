@@ -1,0 +1,46 @@
+name: ubuntu-gnutls-x86_64
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  gnutls:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: |
+            sudo apt update
+            sudo apt install -y libev4 libev-dev
+            sudo apt install -y dash git-core autoconf libtool gettext autopoint 
+            sudo apt install -y automake python3 nettle-dev libp11-kit-dev libtspi-dev libunistring-dev
+            sudo apt install -y libtasn1-bin libtasn1-6-dev libidn2-0-dev gawk gperf
+            sudo apt install -y libtss2-dev libunbound-dev dns-root-data bison gtk-doc-tools
+            sudo apt install -y texinfo texlive texlive-plain-generic texlive-extra-utils
+
+
+      - name: Clone Project
+        run: |
+          git clone https://gitlab.com/gnutls/gnutls.git
+  
+
+      - name: Configure and Build
+        run: |
+          cd gnutls
+          ./bootstrap
+          ./configure --prefix=$PWD/../build
+          make -j$(nproc)
+          make install
+
+      - name: Create tar.xz archive
+        run: |
+          tar -cJf gnutls-ubuntu-x86_64-11042025.tar.xz -C build .
+
+      - name: Upload GnuTLS build archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: gnutls-ubuntu-x86_64-11042025
+          path: gnutls-ubuntu-x86_64-11042025.tar.xz

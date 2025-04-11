@@ -1,0 +1,35 @@
+name: ubuntu-gnutls-x86_64
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  llvm:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Clone the script
+        run: |
+            git clone https://github.com/CodeOfSomnath/library-builds.git
+
+      - name: Build project
+        run: |
+            cd library-builds
+            sudo apt update
+            sudo apt install python3
+            sudo python3 llvm.py -o bin
+
+      - name: Create tar.xz archive
+      # this is in root folder the folder contains library-builds for me
+        run: |
+          tar -cJf llvm-ubuntu-x86_64-11042025.tar.xz -C library-builds/llvm-project/bin .
+
+      - name: Upload GnuTLS build archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: llvm-ubuntu-x86_64-11042025
+          path: llvm-ubuntu-x86_64-11042025.tar.xz
