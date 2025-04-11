@@ -1,13 +1,15 @@
 import subprocess
 import os
 
+# TODO: installer only work on ubuntu so fix it
+
 def join_path(per, p):
     return f"{per}{os.path.sep}{p}"
 
 
 class Installer:
 
-    def i(self, *args):
+    def r(self, *args):
         _args = [arg for arg in args]
         subprocess.run(_args, check=True)
 
@@ -18,7 +20,7 @@ class Installer:
         pass
 
     def configure(self, *deps):
-        self.i("sudo", "apt", "isntall", "-y", *deps)
+        self.r("sudo", "apt", "isntall", "-y", *deps)
 
     def get_source(self):
         # check if source path is set 
@@ -26,16 +28,16 @@ class Installer:
             return
 
         # install the dependencies for copying the file
-        self.i("sudo", "apt", "install", "-y", "git")
+        self.r("sudo", "apt", "install", "-y", "git")
 
         # clone the project
-        self.i("git", "clone", "--depth", "1", "--branch", "main", self.source_url)
+        self.r("git", "clone", "--depth", "1", "--branch", "main", self.source_url)
 
         # setting the source path
         self.source_path = join_path(self.cwd, os.path.dirname(self.source_path))
 
         # cleanup the dependencies
-        self.i("sudo", "apt", "remove", "-y", "git")
+        self.r("sudo", "apt", "remove", "-y", "git")
 
     
     def __init__(self, source_url, source_path, cwd, install_folder = "bin", build_folder = "build", os, arch, outfile_name):
@@ -63,6 +65,8 @@ class CMakeInstaller(Installer):
         super().configure(*deps)
 
         # cmake configure
+        self.r("sudo", "apt", "install", "-y", "cmake", "ninja") # we will use ninja for cmake
+
 
 
 

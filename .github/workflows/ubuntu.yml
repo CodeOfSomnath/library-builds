@@ -1,7 +1,11 @@
 name: ubuntu-x86_64
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
 
 jobs:
   openssl:
@@ -34,7 +38,7 @@ jobs:
         with:
           name: openssl-ubuntu-x86_64-08042025
           path: openssl-ubuntu-x86_64-08042025.tar.xz
-
+jobs:
   gnutls:
     runs-on: ubuntu-latest
 
@@ -72,7 +76,7 @@ jobs:
         with:
           name: gnutls-ubuntu-x86_64-08042025
           path: gnutls-ubuntu-x86_64-08042025.tar.xz
-
+jobs:
   zig:
     runs-on: ubuntu-latest
 
@@ -98,7 +102,7 @@ jobs:
         with:
           name: zig-ubuntu-x86_64-08042025
           path: zig-ubuntu-x86_64-08042025.tar.xz
-
+jobs:
   llvm:
     runs-on: ubuntu-latest
 
